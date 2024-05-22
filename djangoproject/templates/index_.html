@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -8,6 +8,8 @@
     <title>Document</title>
 </head>
 <body>
-  <h1>Products must be there</h1>
+{% for item in all %}
+    <img src="{{ item.image.url }}" alt="">
+{% endfor %}
 </body>
 </html>

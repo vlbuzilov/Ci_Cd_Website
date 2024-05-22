@@ -15,15 +15,22 @@ class Product(models.Model):
     description = models.TextField()
     image = models.ImageField()
     isDiscount = models.BooleanField(default=False)
+    def __str__(self):
+        return self.name
 
 
 class User(models.Model):
     name = models.CharField(max_length=30)
     email = models.EmailField(max_length=50)
     password = models.CharField(max_length=30)
+    def __str__(self):
+        return self.name
 
 
 class Order(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     description = models.TextField()
+    def __str__(self):
+        return self.id
+
