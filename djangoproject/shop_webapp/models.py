@@ -14,6 +14,7 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     description = models.TextField()
     image = models.ImageField(upload_to='djangoproject/static/images')
+    discount = models.DecimalField(max_digits=4,decimal_places=2,null=True,default=False)
     isDiscount = models.BooleanField(default=False)
 
     def __str__(self):
