@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{ product.name }}</title>
+    <link rel="stylesheet" href="/templates/css/product_detail.css">
+</head>
+<body>
+
+<div class="header">
+    <div class = "buttons">
+        <a href="/home" class="header_button">Home</a>
+        <a href="/profile" class="header_button">Profile</a>
+    </div>
+</div>
+
+<div class="product_detail_container">
+    <img src="{{ product.image.url }}" class="product_image" alt="{{ product.name }}">
+    <h1>{{ product.name }}</h1>
+    <p>{{ product.description }}</p>
+    <div class="price_container">
+        <p>Price: {{ product.price }} $</p>
+    </div>
+    <a href="/cart" class="buy_button">Add to Cart</a>
+</div>
+
+</body>
+</html>

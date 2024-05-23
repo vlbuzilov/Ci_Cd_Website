@@ -1,6 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Product, Order
-
 
 def index_page(request):
     return render(request, 'index.html')
@@ -28,8 +27,15 @@ def cart_page(request):
     all_orders = Order.objects.all
     return render(request, 'cart_view.html', {'all': all_orders})
 
+
+def product_detail(request, id):
+    product = get_object_or_404(Product, id=id)
+    return render(request, 'product_detail.html', {'product': product})
+
+  
 def sale_page(request):
     sale_products = Product.objects.filter(isDiscount=True)
     for product in sale_products:
         product.actual_price = product.price * (1 - product.discount / 100)
     return render(request, 'sale.html',{'all':sale_products})
+

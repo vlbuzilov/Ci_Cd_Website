@@ -6,7 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Product Showcase</title>
     <link rel="stylesheet" href="/templates/css/shop_css.css">
-
 </head>
 <style>
 .button {
@@ -48,9 +47,9 @@
             <br>{{ item.name }}<br>
             {{ item.price }} $
         </div>
-        <div class = "order_subcontainer">
+        <div class="order_subcontainer">
             <div class="order_button">
-                <a class="order_button1" href="/cart">Buy</a>
+                <a class="order_button1" href="{% url 'product_detail' item.id %}">Buy</a>
             </div>
         </div>
     </div>

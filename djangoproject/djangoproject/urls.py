@@ -17,7 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from shop_webapp.views import index_page, cart_page, product_page, sale_page
+
+from shop_webapp.views import index_page, cart_page, product_page, sale_page, product_detail
 
 from django.conf import settings
 from django.conf.urls.static import static
@@ -27,6 +28,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("products/", product_page, name="products"),
     path("cart/", cart_page),
+    path('product/<int:id>/', product_detail, name='product_detail'),
     path("sale/",sale_page,name="sale")
 ]
 
