@@ -13,23 +13,58 @@
             margin: 0;
             padding: 0;
         }
-        .product_container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
+        .header {
+            background-color: #f1f1f1;
+            color: #333;
             padding: 20px;
+            text-align: right;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+        .header_button {
+            background-color: #e9ecef; /* Lighter shade */
+            color: #333;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            margin-left: 10px;
+            font-size: 18px;
+        }
+        .header_button:hover {
+            background-color: #d3d3d3; /* Darker shade on hover */
+        }
+        .filter_bar {
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .filter_input {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .product_container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* Display 4 products per row */
             gap: 20px;
+            padding: 20px;
         }
         .product_info {
             background-color: #fff;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             overflow: hidden;
-            width: 250px;
-            transition: transform 0.3s;
+            transition: transform 0.3s, box-shadow 0.3s;
         }
         .product_info:hover {
             transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         }
         .product_images {
             width: 100%;
@@ -46,26 +81,37 @@
             margin: 5px 0;
         }
         .order_button {
+            width: 100%;
             display: flex;
             justify-content: center;
             padding: 15px;
             background-color: #fff;
         }
         .order_button1 {
-            background-color: #007bff;
-            color: white;
+            background-color: #e9ecef;
+            color: #333;
             text-decoration: none;
-            padding: 10px 20px;
+            padding: 12px 30px 30px;
             border-radius: 5px;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s, box-shadow 0.3s;
             text-align: center;
+            font-size: 16px;
+            margin: 0 -14px 30px 26px;
         }
         .order_button1:hover {
-            background-color: #0056b3;
+            background-color: #d3d3d3;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
 <body>
+<div class="header">
+    <a href="/home" class="header_button">Home</a>
+    <a href="/profile" class="header_button">Profile</a>
+</div>
+<div class="filter_bar">
+    <input type="text" class="filter_input" placeholder="Search...">
+</div>
 <div class="product_container">
     {% for item in all_products %}
     <div class="product_info">
