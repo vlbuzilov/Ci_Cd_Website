@@ -7,8 +7,14 @@ def index_page(request):
 
 
 def product_page(request):
-    all_products = Product.objects.all()
-    return render(request, 'products.html', {"all_products": all_products})
+    query = request.GET.get('name_contains', '')
+    if query:
+        all_products = Product.objects.filter(name__icontains=query)
+    else:
+        all_products = Product.objects.all()
+
+    return render(request, 'products.html', {'all_products': all_products})
+
 
 
 def cart_page(request):
