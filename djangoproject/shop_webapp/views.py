@@ -8,12 +8,19 @@ def index_page(request):
 
 def product_page(request):
     query = request.GET.get('name_contains', '')
-    if query:
-        all_products = Product.objects.filter(name__icontains=query)
-    else:
-        all_products = Product.objects.all()
+    sort = request.GET.get('sort', 'none')
 
-    return render(request, 'products.html', {'all_products': all_products})
+    products = Product.objects.all()
+    if query:
+        products = products.filter(name__icontains=query)
+
+    if sort == 'price_asc':
+        products = products.order_by('price')
+    elif sort == 'price_desc':
+        products = products.order_by('-price')
+
+    return render(request, 'products.html', {'all_products': products})
+
 
 
 
