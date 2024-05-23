@@ -17,13 +17,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from shop_webapp.views import index_page
+from shop_webapp.views import index_page, create_order
 
 from django.conf import settings
 from django.conf.urls.static import static
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", index_page)
+    path("", index_page),
+    path("order",create_order)
 ]
 
 if settings.DEBUG:

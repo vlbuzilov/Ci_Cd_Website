@@ -1,0 +1,29 @@
+.product_container{
+    display:flex;
+}
+.product_images{
+    width:200px;
+    height:200px;
+}
+.product_info1{
+    display: flex;
+    position: relative;
+    align-content: center;
+    justify-content: center;
+}
+.order_button{
+    max-width: 40px;
+    max-height: 20px;
+    width: 40px;
+    height: 20px;
+    align-content: center;
+    justify-content: center;
+    background-color: #0db3ec;
+    border-radius: 20px;
+}
+.order_button1{
+    display: flex;
+    position: relative;
+    align-content: center;
+    justify-content: center;
+}

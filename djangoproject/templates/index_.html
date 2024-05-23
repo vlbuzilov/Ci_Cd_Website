@@ -6,10 +6,22 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link rel="stylesheet" href="templates/css/shop_css.css">
 </head>
 <body>
-{% for item in all %}
-    <img src="{{ item.image.url }}" alt="">
-{% endfor %}
+<div class="product_container">
+    {% for item in all %}
+    <div class="product_info">
+        <img src="{{ item.image.url }}" class="product_images" alt="">
+        <div class="product_info1">
+            </br>{{item.name}}</br>
+            {{item.price}} $
+        </div>
+        <div class="order_button">
+            <a class="order_button1" href="order">Buy</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
 </body>
 </html>
