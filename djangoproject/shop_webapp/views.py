@@ -1,9 +1,9 @@
 from django.shortcuts import render
-from .models import Product
+from .models import Product, Order
 
 def index_page(request):
     all_products = Product.objects.all
     return render(request, 'index_.html',{'all':all_products})
-def create_order(request):
-    all_products = Product.objects
-    return render(request, 'order_create_view.html',{'all':all_products})
+def cart_page(request):
+    all_orders = Order.objects.all
+    return render(request, 'cart_view.html',{'all':all_orders})
