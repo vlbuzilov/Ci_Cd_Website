@@ -6,8 +6,21 @@ def index_page(request):
 
 
 def product_page(request):
-    all_products = Product.objects.all()
-    return render(request, 'products.html', {"all_products": all_products})
+    query = request.GET.get('name_contains', '')
+    sort = request.GET.get('sort', 'none')
+
+    products = Product.objects.all()
+    if query:
+        products = products.filter(name__icontains=query)
+
+    if sort == 'price_asc':
+        products = products.order_by('price')
+    elif sort == 'price_desc':
+        products = products.order_by('-price')
+
+    return render(request, 'products.html', {'all_products': products})
+
+
 
 
 def cart_page(request):
@@ -18,3 +31,11 @@ def cart_page(request):
 def product_detail(request, id):
     product = get_object_or_404(Product, id=id)
     return render(request, 'product_detail.html', {'product': product})
+
+  
+def sale_page(request):
+    sale_products = Product.objects.filter(isDiscount=True)
+    for product in sale_products:
+        product.actual_price = product.price * (1 - product.discount / 100)
+    return render(request, 'sale.html',{'all':sale_products})
+

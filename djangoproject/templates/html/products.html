@@ -7,15 +7,38 @@
     <title>Product Showcase</title>
     <link rel="stylesheet" href="/templates/css/shop_css.css">
 </head>
+<style>
+.button {
+    padding: 10px 20px;
+    background-color: #4CAF50; /* Зелений колір */
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 12px; /* Округлені кути */
+    transition: background-color 0.3s ease; /* Плавне зміна кольору */
+}
+
+.button:hover {
+    background-color: #45a049; /* Темніший відтінок зеленого при наведенні */
+}
+</style>
 <body>
 
 <div class="header">
     <a href="/home" class="header_button">Home</a>
     <a href="/profile" class="header_button">Profile</a>
 </div>
-<div class="filter_bar">
-    <input type="text" class="filter_input" placeholder="Search...">
-</div>
+<form method="GET" action="">
+    <div class="filter_bar">
+        <input type="search" class="filter_input" name="name_contains" id="search_input" placeholder="Search...">
+    </div>
+</form>
+<button onclick="toggleSort()" class="button">Toggle Price Sort</button>
 <div class="product_container">
     {% for item in all_products %}
     <div class="product_info">
@@ -33,4 +56,18 @@
     {% endfor %}
 </div>
 </body>
+<script>
+function toggleSort() {
+    var searchParams = new URLSearchParams(window.location.search);
+    var currentSort = searchParams.get('sort') || 'none';
+
+    if (currentSort === 'none' || currentSort === 'price_desc') {
+        searchParams.set('sort', 'price_asc');
+    } else {
+        searchParams.set('sort', 'price_desc');
+    }
+    window.location.search = searchParams.toString();
+}
+</script>
+
 </html>
