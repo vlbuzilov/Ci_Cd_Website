@@ -57,18 +57,18 @@ def register_user(request):
 
 
 def update_info(request):
-    if request.user.is_authenticated:
-        current_user = Profile.objects.get(user_id=request.user.id)
-        form = UserInfoForm(request.POST or None, instance=current_user)
-
+    user = request.user
+    current_user_profile = Profile.objects.get(user_id=user.id)
+    if request.method == 'POST':
+        form = UserInfoForm(request.POST, instance=current_user_profile, user=user)
         if form.is_valid():
             form.save()
             messages.success(request, 'User has been updated')
             return redirect('home')
-        return render(request, 'update_info.html', {'form': form})
     else:
-        messages.error(request, 'You must be logged in to update info')
-        return redirect('home')
+        form = UserInfoForm(instance=current_user_profile, user=user)
+
+    return render(request, 'update_info.html', {'form': form})
 
 
 def logout_user(request):

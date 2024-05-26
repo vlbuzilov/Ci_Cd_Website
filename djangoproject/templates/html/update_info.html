@@ -19,7 +19,8 @@
             padding: 40px;
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-            width: 500px;
+            width: 80%;
+            max-width: 800px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -30,19 +31,31 @@
             font-size: 24px;
             color: #333;
         }
+        .profile-container form {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            width: 100%;
+        }
+        .profile-container .form-group {
+            width: 48%;
+            margin-bottom: 20px;
+        }
+        .profile-container .form-group.full-width {
+            width: 100%;
+        }
         .profile-container label {
             display: block;
-            margin: 15px 0 5px;
-            width: 100%;
-            font-size: 16px;
+            margin: 0 0 5px;
+            font-size: 14px;
             color: #333;
         }
         .profile-container input[type="text"],
         .profile-container input[type="email"],
-        .profile-container input[type="password"] {
+        .profile-container input[type="password"],
+        .profile-container input[type="tel"] {
             width: 100%;
             padding: 12px;
-            margin: 8px 0 20px;
             border: 1px solid #ccc;
             border-radius: 6px;
             font-size: 16px;
@@ -105,8 +118,53 @@
         <h2>Update Profile</h2>
         <form method="POST" action="{% url 'update_info' %}">
             {% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" value="Update Profile">
+            <div class="form-group">
+                <label for="username">Username</label>
+                {{ form.username }}
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                {{ form.email }}
+            </div>
+            <div class="form-group">
+                <label for="first_name">First Name</label>
+                {{ form.first_name }}
+            </div>
+            <div class="form-group">
+                <label for="last_name">Last Name</label>
+                {{ form.last_name }}
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone</label>
+                {{ form.phone }}
+            </div>
+            <div class="form-group full-width">
+                <label for="address1">Address Line 1</label>
+                {{ form.address1 }}
+            </div>
+            <div class="form-group full-width">
+                <label for="address2">Address Line 2</label>
+                {{ form.address2 }}
+            </div>
+            <div class="form-group">
+                <label for="city">City</label>
+                {{ form.city }}
+            </div>
+            <div class="form-group">
+                <label for="state">State</label>
+                {{ form.state }}
+            </div>
+            <div class="form-group">
+                <label for="country">Country</label>
+                {{ form.country }}
+            </div>
+            <div class="form-group">
+                <label for="zipcode">Zipcode</label>
+                {{ form.zipcode }}
+            </div>
+            <div class="form-group full-width">
+                <input type="submit" value="Update Profile">
+            </div>
         </form>
     </div>
 
