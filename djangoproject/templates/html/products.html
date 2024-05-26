@@ -14,9 +14,10 @@
 
 <div class="header">
     <a href="{% url 'home' %}" class="back_arrow_block"><img src="/templates/images/back.png" class="back_arrow"></a>
+    <img src="/templates/images/main-logo.png" class="logo" href="{% url 'home' %}">
     <div class="buttons">
         <a href="{% url 'home' %}" class="header_button">Home</a>
-        <a href="{% url 'profile' %}" class="header_button">Profile</a>
+        <a href="{% url 'update_info' %}" class="header_button">Profile</a>
     </div>
 </div>
 <div class="filter_bar sorting">
