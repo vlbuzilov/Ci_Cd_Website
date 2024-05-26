@@ -149,6 +149,20 @@
                 <li class="nav-item">
                   <a class="nav-link me-4 active" href="#billboard">Home</a>
                 </li>
+
+                  {% if not user.is_authenticated %}
+                  <li class="nav-item">
+                  <a class="nav-link me-4 active" href="{% url 'login' %}">Login</a>
+                </li>
+                      <li class="nav-item">
+                  <a class="nav-link me-4 active" href="{% url 'register' %}">Sign up</a>
+                </li>
+                  {% else %}
+                  <li class="nav-item">
+                  <a class="nav-link me-4 active" href="{% url 'logout' %}">Logout</a>
+                </li>
+                {% endif %}
+
                 <li class="nav-item">
                   <a class="nav-link me-4" href="#mobile-products">Shop</a>
                 </li>
@@ -183,7 +197,7 @@
                         </a>
                       </li>
                       <li class="pe-3">
-                        <a href="#">
+                        <a href="{% url 'update_info' %}">
                           <svg class="user">
                             <use xlink:href="#user"></use>
                           </svg>
