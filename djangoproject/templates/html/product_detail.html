@@ -10,8 +10,9 @@
 <body>
 
 <div class="header">
+    <a href="{% url 'products' %}" class="back_arrow_block"><img src="/templates/images/back.png" class="back_arrow"></a>
     <div class = "buttons">
-        <a href="/home" class="header_button">Home</a>
+        <a href="{% url 'home' %}" class="header_button">Home</a>
         <a href="/profile" class="header_button">Profile</a>
     </div>
 </div>
