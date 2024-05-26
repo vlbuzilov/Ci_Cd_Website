@@ -17,13 +17,22 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from shop_webapp.views import index_page
+from shop_webapp.views import index_page, product_page, sale_page, product_detail, login_user, logout_user, register_user, update_info
 
 from django.conf import settings
+
 from django.conf.urls.static import static
+
 urlpatterns = [
+    path("", index_page, name="home"),
     path("admin/", admin.site.urls),
-    path("", index_page)
+    path("login/", login_user, name="login"),
+    path("logout/", logout_user, name="logout"),
+    path("register/", register_user, name="register"),
+    path("update_info/", update_info, name="update_info"),
+    path("products/", product_page, name="products"),
+    path('product/<int:id>/', product_detail, name='product_detail'),
+    path("sale/", sale_page, name="sale")
 ]
 
 if settings.DEBUG:

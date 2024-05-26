@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .profile-container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 800px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .profile-container h2 {
+            margin: 0 0 20px;
+            text-align: center;
+            font-size: 24px;
+            color: #333;
+        }
+        .profile-container form {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            width: 100%;
+        }
+        .profile-container .form-group {
+            width: 48%;
+            margin-bottom: 20px;
+        }
+        .profile-container .form-group.full-width {
+            width: 100%;
+        }
+        .profile-container label {
+            display: block;
+            margin: 0 0 5px;
+            font-size: 14px;
+            color: #333;
+        }
+        .profile-container input[type="text"],
+        .profile-container input[type="email"],
+        .profile-container input[type="password"],
+        .profile-container input[type="tel"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        .profile-container input[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            background-color: #0056b3;
+            border: none;
+            border-radius: 6px;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            box-shadow: 0 4px #004494;
+            transition: background-color 0.3s ease;
+        }
+        .profile-container input[type="submit"]:hover {
+            background-color: #004494;
+        }
+        .profile-container input[type="submit"]:active {
+            background-color: #003366;
+            box-shadow: 0 2px #002244;
+            transform: translateY(2px);
+        }
+        /* Message styles */
+        .message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            color: #fff;
+            background-color: #333;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            display: none;
+        }
+        .message.success {
+            background-color: #4CAF50; /* Green for success */
+        }
+        .message.error {
+            background-color: #f44336; /* Red for error */
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const messages = document.querySelectorAll('.message');
+            messages.forEach(message => {
+                message.style.display = 'block';
+                setTimeout(() => {
+                    message.style.display = 'none';
+                }, 3000);
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="profile-container">
+        <h2>Update Profile</h2>
+        <form method="POST" action="{% url 'update_info' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username">Username</label>
+                {{ form.username }}
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                {{ form.email }}
+            </div>
+            <div class="form-group">
+                <label for="first_name">First Name</label>
+                {{ form.first_name }}
+            </div>
+            <div class="form-group">
+                <label for="last_name">Last Name</label>
+                {{ form.last_name }}
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone</label>
+                {{ form.phone }}
+            </div>
+            <div class="form-group full-width">
+                <label for="address1">Address Line 1</label>
+                {{ form.address1 }}
+            </div>
+            <div class="form-group full-width">
+                <label for="address2">Address Line 2</label>
+                {{ form.address2 }}
+            </div>
+            <div class="form-group">
+                <label for="city">City</label>
+                {{ form.city }}
+            </div>
+            <div class="form-group">
+                <label for="state">State</label>
+                {{ form.state }}
+            </div>
+            <div class="form-group">
+                <label for="country">Country</label>
+                {{ form.country }}
+            </div>
+            <div class="form-group">
+                <label for="zipcode">Zipcode</label>
+                {{ form.zipcode }}
+            </div>
+            <div class="form-group full-width">
+                <input type="submit" value="Update Profile">
+            </div>
+        </form>
+    </div>
+
+    {% if messages %}
+        <div id="messages">
+            {% for message in messages %}
+                <div class="message {% if message.tags %}{{ message.tags }}{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+</body>
+</html>

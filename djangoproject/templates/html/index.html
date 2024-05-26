@@ -10,13 +10,13 @@
     <meta name="author" content="">
     <meta name="keywords" content="">
     <meta name="description" content="">
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="/templates/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/templates/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-    <script src="js/modernizr.js"></script>
+    <script src="/templates/js/modernizr.js"></script>
   </head>
   <body data-bs-spy="scroll" data-bs-target="#navbar" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" tabindex="0">
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
@@ -130,7 +130,7 @@
       <nav id="header-nav" class="navbar navbar-expand-lg px-3 mb-3">
         <div class="container-fluid">
           <a class="navbar-brand" href="index.html">
-            <img src="images/main-logo.png" class="logo">
+            <img src="/templates/images/main-logo.png" class="logo">
           </a>
           <button class="navbar-toggler d-flex d-lg-none order-3 p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-expanded="false" aria-label="Toggle navigation">
             <svg class="navbar-icon">
@@ -140,7 +140,7 @@
           <div class="offcanvas offcanvas-end" tabindex="-1" id="bdNavbar" aria-labelledby="bdNavbarOffcanvasLabel">
             <div class="offcanvas-header px-4 pb-0">
               <a class="navbar-brand" href="index.html">
-                <img src="images/main-logo.png" class="logo">
+                <img src="/templates/images/main-logo.png" class="logo">
               </a>
               <button type="button" class="btn-close btn-close-black" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#bdNavbar"></button>
             </div>
@@ -149,6 +149,20 @@
                 <li class="nav-item">
                   <a class="nav-link me-4 active" href="#billboard">Home</a>
                 </li>
+
+                  {% if not user.is_authenticated %}
+                  <li class="nav-item">
+                  <a class="nav-link me-4 active" href="{% url 'login' %}">Login</a>
+                </li>
+                      <li class="nav-item">
+                  <a class="nav-link me-4 active" href="{% url 'register' %}">Sign up</a>
+                </li>
+                  {% else %}
+                  <li class="nav-item">
+                  <a class="nav-link me-4 active" href="{% url 'logout' %}">Logout</a>
+                </li>
+                {% endif %}
+
                 <li class="nav-item">
                   <a class="nav-link me-4" href="#mobile-products">Shop</a>
                 </li>
@@ -183,7 +197,7 @@
                         </a>
                       </li>
                       <li class="pe-3">
-                        <a href="#">
+                        <a href="{% url 'update_info' %}">
                           <svg class="user">
                             <use xlink:href="#user"></use>
                           </svg>
@@ -221,12 +235,12 @@
                 <div class="col-md-6">
                   <div class="banner-content">
                     <h1 class="display-2 text-uppercase text-dark pb-5">Your Products Are Great.</h1>
-                    <a href="shop.html" class="btn btn-medium btn-dark text-uppercase btn-rounded-none">Shop Product</a>
+                    <a href="{% url 'products' %}" class="btn btn-medium btn-dark text-uppercase btn-rounded-none">Shop Product</a>
                   </div>
                 </div>
                 <div class="col-md-5">
                   <div class="image-holder">
-                    <img src="images/banner-image.png" alt="banner">
+                    <img src="/templates/images/banner-image.png" alt="banner">
                   </div>
                 </div>
               </div>
@@ -238,12 +252,12 @@
                 <div class="col-md-6">
                   <div class="banner-content">
                     <h1 class="display-2 text-uppercase text-dark pb-5">Technology Hack You Won't Get</h1>
-                    <a href="shop.html" class="btn btn-medium btn-dark text-uppercase btn-rounded-none">Shop Product</a>
+                    <a href="{% url 'products' %}" class="btn btn-medium btn-dark text-uppercase btn-rounded-none">Shop Product</a>
                   </div>
                 </div>
                 <div class="col-md-5">
                   <div class="image-holder">
-                    <img src="images/banner-image.png" alt="banner">
+                    <img src="/templates/images/banner-image.png" alt="banner">
                   </div>
                 </div>
               </div>
@@ -326,7 +340,7 @@
           <div class="display-header d-flex justify-content-between pb-3">
             <h2 class="display-7 text-dark text-uppercase">Mobile Products</h2>
             <div class="btn-right">
-              <a href="shop.html" class="btn btn-medium btn-normal text-uppercase">Go to Shop</a>
+              <a href="{% url 'products' %}" class="btn btn-medium btn-normal text-uppercase">Go to Shop</a>
             </div>
           </div>
           <div class="swiper product-swiper">
@@ -334,7 +348,7 @@
               <div class="swiper-slide">
                 <div class="product-card position-relative">
                   <div class="image-holder">
-                    <img src="images/product-item1.jpg" alt="product-item" class="img-fluid">
+                    <img src="/templates/images/product-item1.jpg" alt="product-item" class="img-fluid">
                   </div>
                   <div class="cart-concern position-absolute">
                     <div class="cart-button d-flex">
@@ -352,7 +366,7 @@
               <div class="swiper-slide">
                 <div class="product-card position-relative">
                   <div class="image-holder">
-                    <img src="images/product-item2.jpg" alt="product-item" class="img-fluid">
+                    <img src="/templates/images/product-item2.jpg" alt="product-item" class="img-fluid">
                   </div>
                   <div class="cart-concern position-absolute">
                     <div class="cart-button d-flex">
@@ -370,7 +384,7 @@
               <div class="swiper-slide">
                 <div class="product-card position-relative">
                   <div class="image-holder">
-                    <img src="images/product-item3.jpg" alt="product-item" class="img-fluid">
+                    <img src="/templates/images/product-item3.jpg" alt="product-item" class="img-fluid">
                   </div>
                   <div class="cart-concern position-absolute">
                     <div class="cart-button d-flex">
@@ -388,7 +402,7 @@
               <div class="swiper-slide">
                 <div class="product-card position-relative">
                   <div class="image-holder">
-                    <img src="images/product-item4.jpg" alt="product-item" class="img-fluid">
+                    <img src="/templates/images/product-item4.jpg" alt="product-item" class="img-fluid">
                   </div>
                   <div class="cart-concern position-absolute">
                     <div class="cart-button d-flex">
@@ -406,7 +420,7 @@
               <div class="swiper-slide">
                 <div class="product-card position-relative">
                   <div class="image-holder">
-                    <img src="images/product-item5.jpg" alt="product-item" class="img-fluid">
+                    <img src="/templates/images/product-item5.jpg" alt="product-item" class="img-fluid">
                   </div>
                   <div class="cart-concern position-absolute">
                     <div class="cart-button d-flex">
@@ -427,13 +441,13 @@
       </div>
       <div class="swiper-pagination position-absolute text-center"></div>
     </section>
-    <section id="yearly-sale" class="bg-light-blue overflow-hidden mt-5 padding-xlarge" style="background-image: url('images/single-image1.png');background-position: right; background-repeat: no-repeat;">
+    <section id="yearly-sale" class="bg-light-blue overflow-hidden mt-5 padding-xlarge" style="background-image: url('/templates/images/single-image1.png');background-position: right; background-repeat: no-repeat;">
       <div class="row d-flex flex-wrap align-items-center">
         <div class="col-md-6 col-sm-12">
           <div class="text-content offset-4 padding-medium">
             <h3>10% off</h3>
             <h2 class="display-2 pb-5 text-uppercase text-dark">New year sale</h2>
-            <a href="shop.html" class="btn btn-medium btn-dark text-uppercase btn-rounded-none">Shop Sale</a>
+            <a href="{% url 'sale' %}" class="btn btn-medium btn-dark text-uppercase btn-rounded-none">Shop Sale</a>
           </div>
         </div>
         <div class="col-md-6 col-sm-12">
@@ -454,7 +468,7 @@
             <div class="col-lg-4 col-sm-12">
               <div class="card border-none me-3">
                 <div class="card-image">
-                  <img src="images/post-item1.jpg" alt="" class="img-fluid">
+                  <img src="/templates/images/post-item1.jpg" alt="" class="img-fluid">
                 </div>
               </div>
               <div class="card-body text-uppercase">
@@ -470,7 +484,7 @@
             <div class="col-lg-4 col-sm-12">
               <div class="card border-none me-3">
                 <div class="card-image">
-                  <img src="images/post-item2.jpg" alt="" class="img-fluid">
+                  <img src="/templates/images/post-item2.jpg" alt="" class="img-fluid">
                 </div>
               </div>
               <div class="card-body text-uppercase">
@@ -486,7 +500,7 @@
             <div class="col-lg-4 col-sm-12">
               <div class="card border-none me-3">
                 <div class="card-image">
-                  <img src="images/post-item3.jpg" alt="" class="img-fluid">
+                  <img src="/templates/images/post-item3.jpg" alt="" class="img-fluid">
                 </div>
               </div>
               <div class="card-body text-uppercase">
@@ -614,7 +628,7 @@
           <div class="d-flex flex-wrap">
             <figure class="instagram-item pe-2">
               <a href="https://templatesjungle.com/" class="image-link position-relative">
-                <img src="images/insta-item1.jpg" alt="instagram" class="insta-image">
+                <img src="/templates/images/insta-item1.jpg" alt="instagram" class="insta-image">
                 <div class="icon-overlay position-absolute d-flex justify-content-center">
                   <svg class="instagram">
                     <use xlink:href="#instagram"></use>
@@ -624,7 +638,7 @@
             </figure>
             <figure class="instagram-item pe-2">
               <a href="https://templatesjungle.com/" class="image-link position-relative">
-                <img src="images/insta-item2.jpg" alt="instagram" class="insta-image">
+                <img src="/templates/images/insta-item2.jpg" alt="instagram" class="insta-image">
                 <div class="icon-overlay position-absolute d-flex justify-content-center">
                   <svg class="instagram">
                     <use xlink:href="#instagram"></use>
@@ -634,7 +648,7 @@
             </figure>
             <figure class="instagram-item pe-2">
               <a href="https://templatesjungle.com/" class="image-link position-relative">
-                <img src="images/insta-item3.jpg" alt="instagram" class="insta-image">
+                <img src="/templates/images/insta-item3.jpg" alt="instagram" class="insta-image">
                 <div class="icon-overlay position-absolute d-flex justify-content-center">
                   <svg class="instagram">
                     <use xlink:href="#instagram"></use>
@@ -644,7 +658,7 @@
             </figure>
             <figure class="instagram-item pe-2">
               <a href="https://templatesjungle.com/" class="image-link position-relative">
-                <img src="images/insta-item4.jpg" alt="instagram" class="insta-image">
+                <img src="/templates/images/insta-item4.jpg" alt="instagram" class="insta-image">
                 <div class="icon-overlay position-absolute d-flex justify-content-center">
                   <svg class="instagram">
                     <use xlink:href="#instagram"></use>
@@ -654,7 +668,7 @@
             </figure>
             <figure class="instagram-item pe-2">
               <a href="https://templatesjungle.com/" class="image-link position-relative">
-                <img src="images/insta-item5.jpg" alt="instagram" class="insta-image">
+                <img src="/templates/images/insta-item5.jpg" alt="instagram" class="insta-image">
                 <div class="icon-overlay position-absolute d-flex justify-content-center">
                   <svg class="instagram">
                     <use xlink:href="#instagram"></use>
@@ -673,7 +687,7 @@
             <div class="row d-flex flex-wrap justify-content-between">
               <div class="col-lg-3 col-sm-6 pb-3">
                 <div class="footer-menu">
-                  <img src="images/main-logo.png" alt="logo">
+                  <img src="/templates/images/main-logo.png" alt="logo">
                   <p>Nisi, purus vitae, ultrices nunc. Sit ac sit suscipit hendrerit. Gravida massa volutpat aenean odio erat nullam fringilla.</p>
                   <div class="social-links">
                     <ul class="d-flex list-unstyled">
@@ -782,8 +796,8 @@
             <div class="Shipping d-flex">
               <p>We ship with:</p>
               <div class="card-wrap ps-2">
-                <img src="images/dhl.png" alt="visa">
-                <img src="images/shippingcard.png" alt="mastercard">
+                <img src="/templates/images/dhl.png" alt="visa">
+                <img src="/templates/images/shippingcard.png" alt="mastercard">
               </div>
             </div>
           </div>
@@ -791,9 +805,9 @@
             <div class="payment-method d-flex">
               <p>Payment options:</p>
               <div class="card-wrap ps-2">
-                <img src="images/visa.jpg" alt="visa">
-                <img src="images/mastercard.jpg" alt="mastercard">
-                <img src="images/paypal.jpg" alt="paypal">
+                <img src="/templates/images/visa.jpg" alt="visa">
+                <img src="/templates/images/mastercard.jpg" alt="mastercard">
+                <img src="/templates/images/paypal.jpg" alt="paypal">
               </div>
             </div>
           </div>
@@ -806,10 +820,10 @@
         </div>
       </div>
     </div>
-    <script src="js/jquery-1.11.0.min.js"></script>
+    <script src="/templates/js/jquery-1.11.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
-    <script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript" src="js/plugins.js"></script>
-    <script type="text/javascript" src="js/script.js"></script>
+    <script type="text/javascript" src="/templates/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="/templates/js/plugins.js"></script>
+    <script type="text/javascript" src="/templates/js/script.js"></script>
   </body>
 </html>

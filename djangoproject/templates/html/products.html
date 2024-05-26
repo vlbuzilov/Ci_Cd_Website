@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Product Showcase</title>
+    <link rel="stylesheet" href="/templates/css/shop_css.css">
+</head>
+<style>
+.button {
+    padding: 10px 20px;
+    background-color: #4CAF50; /* Зелений колір */
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 12px; /* Округлені кути */
+    transition: background-color 0.3s ease; /* Плавне зміна кольору */
+}
+
+.button:hover {
+    background-color: #45a049; /* Темніший відтінок зеленого при наведенні */
+}
+</style>
+<body>
+
+<div class="header">
+    <a href="/home" class="header_button">Home</a>
+    <a href="/profile" class="header_button">Profile</a>
+</div>
+<form method="GET" action="">
+    <div class="filter_bar">
+        <input type="search" class="filter_input" name="name_contains" id="search_input" placeholder="Search...">
+    </div>
+</form>
+<button onclick="toggleSort()" class="button">Toggle Price Sort</button>
+<div class="product_container">
+    {% for item in all_products %}
+    <div class="product_info">
+        <img src="{{ item.image.url }}" class="product_images" alt="{{ item.name }}">
+        <div class="product_info1">
+            <br>{{ item.name }}<br>
+            {{ item.price }} $
+        </div>
+        <div class="order_subcontainer">
+            <div class="order_button">
+                <a class="order_button1" href="{% url 'product_detail' item.id %}">Buy</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+</body>
+<script>
+function toggleSort() {
+    var searchParams = new URLSearchParams(window.location.search);
+    var currentSort = searchParams.get('sort') || 'none';
+
+    if (currentSort === 'none' || currentSort === 'price_desc') {
+        searchParams.set('sort', 'price_asc');
+    } else {
+        searchParams.set('sort', 'price_desc');
+    }
+    window.location.search = searchParams.toString();
+}
+</script>
+
+</html>

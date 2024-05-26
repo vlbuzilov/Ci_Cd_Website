@@ -1,0 +1,106 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+}
+
+.header {
+    background-color: #f1f1f1;
+    color: #333;
+    padding: 30px;
+    text-align: right;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.header_button {
+    background-color: #e9ecef; /* Lighter shade */
+    color: #333;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    margin-right: 6.3px;
+    font-size: 18px;
+}
+
+.header_button:hover {
+    background-color: #d3d3d3; /* Darker shade on hover */
+}
+
+.product_detail_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: white;
+    margin: 20px auto;
+    max-width: 800px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    transition: transform 0.3s, box-shadow 0.3s; /* Додаємо трансформацію та тінь для наведення */
+}
+
+.product_detail_container:hover {
+    transform: translateY(-10px); /* Зміщення вверх при наведенні */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Глибша тінь при наведенні */
+}
+
+.product_image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    transition: transform 0.3s; /* Додаємо трансформацію для зображення */
+}
+
+.product_image:hover {
+    transform: scale(1.05); /* Збільшення зображення при наведенні */
+}
+
+.product_info {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.product_info h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.product_info p {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+    color: #555;
+}
+.price_container{
+    width: 200px;
+    margin-bottom: 10px;
+    border-radius: 30px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    background-color: rgba(201, 201, 201, 0.39);
+}
+.price {
+    font-size: 1.5em;
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+.buy_button {
+    display: inline-block;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    color: white;
+    background-color: #e74c3c;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.buy_button:hover {
+    background-color: #c0392b;
+}
