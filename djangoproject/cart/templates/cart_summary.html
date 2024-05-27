@@ -30,7 +30,7 @@
         <img src="{{ item.image.url }}" class="product_images" alt="{{ item.name }}">
         <div class="product_info1">
             <br>{{ item.name }}<br>
-            {{ item.price }} $
+            {{ item.discounted_price|floatformat:2 }} $
         </div>
         <div class="order_subcontainer">
             <div class="delete_button">
@@ -42,7 +42,7 @@
 </div>
 
 <div class="order_button_container">
-    <p class="total_price">Total price: {{ total_price }} $</p>
+    <p class="total_price">Total price: {{ total_price|floatformat:2 }} $</p>
     <a type="button" id="order-button" class="order_button" href="{% url "checkout" %}">Order</a>
 </div>
 

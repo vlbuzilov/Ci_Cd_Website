@@ -182,3 +182,7 @@ body {
 .logo{
     margin-left: 170px;
 }
+
+.logo_unloggined{
+    margin-left: 60px;
+}

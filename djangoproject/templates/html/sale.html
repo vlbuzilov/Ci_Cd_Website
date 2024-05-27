@@ -12,7 +12,11 @@
 
 <div class="header">
     <a href="{% url 'sale' %}" class="back_arrow_block"><img src="/templates/images/back.png" class="back_arrow"></a>
+    {% if user.is_authenticated %}
     <a href="{% url 'home' %}"><img src="/templates/images/main-logo.png" class="logo"></a>
+    {% else %}
+    <a href="{% url 'home' %}"><img src="/templates/images/main-logo.png" class="logo_unloggined"></a>
+    {% endif %}
     <div class="buttons">
         <a href="{% url 'home' %}" class="header_button">Home</a>
         {% if user.is_authenticated %}

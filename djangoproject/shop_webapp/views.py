@@ -94,7 +94,8 @@ def product_page(request):
 
 def product_detail(request, id):
     product = get_object_or_404(Product, id=id)
-    return render(request, 'product_detail.html', {'product': product})
+    discounted_price = product.get_discounted_price()
+    return render(request, 'product_detail.html', {'product': product, 'discounted_price': discounted_price})
 
 
 def sale_page(request):
