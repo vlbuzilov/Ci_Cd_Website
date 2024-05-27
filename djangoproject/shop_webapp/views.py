@@ -6,7 +6,6 @@ from django.contrib import messages
 from .forms import UserInfoForm
 from .models import Product, Profile
 
-from .models import Product
 def index_page(request):
     return render(request, 'index.html')
 
@@ -103,5 +102,3 @@ def sale_page(request):
     for product in sale_products:
         product.actual_price = product.price * (1 - product.discount / 100)
     return render(request, 'sale.html', {'all': sale_products})
-
-

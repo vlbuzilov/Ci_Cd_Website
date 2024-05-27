@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path
 
 from shop_webapp.views import index_page, product_page, sale_page, product_detail, login_user, logout_user, register_user, update_info
-from cart.views import cart_summary, cart_add, cart_delete, cart_update
+from cart.views import cart_summary, cart_add, cart_delete, cart_update, buy_page
 from django.conf import settings
 
 from django.conf.urls.static import static
@@ -37,6 +37,7 @@ urlpatterns = [
     path("add/", cart_add, name="cart_add"),
     path("delete/", cart_delete, name="cart_delete"),
     path("update/", cart_update, name="cart_update"),
+    path("checkout/", buy_page, name="checkout")
 ]
 
 if settings.DEBUG:

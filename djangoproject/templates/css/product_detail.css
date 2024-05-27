@@ -186,10 +186,12 @@ body {
     border-radius: 5px;
     text-decoration: none;
     transition: background-color 0.3s ease;
+    cursor: pointer;
 }
 
 .buy_button:hover {
     background-color: #c0392b;
+    cursor: pointer;
 }
 
 .back_arrow{

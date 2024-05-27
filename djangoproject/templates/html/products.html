@@ -17,7 +17,9 @@
     <a href="{% url 'home' %}"><img src="/templates/images/main-logo.png" class="logo"></a>
     <div class="buttons">
         <a href="{% url 'home' %}" class="header_button">Home</a>
+        {% if user.is_authenticated %}
         <a href="{% url 'update_info' %}" class="header_button">Profile</a>
+        {% endif %}
     </div>
 </div>
 <div class="filter_bar sorting">
