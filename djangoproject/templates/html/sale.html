@@ -11,8 +11,18 @@
 <body>
 
 <div class="header">
-    <a href="/home" class="header_button">Home</a>
-    <a href="/profile" class="header_button">Profile</a>
+    <a href="{% url 'sale' %}" class="back_arrow_block"><img src="/templates/images/back.png" class="back_arrow"></a>
+    {% if user.is_authenticated %}
+    <a href="{% url 'home' %}"><img src="/templates/images/main-logo.png" class="logo"></a>
+    {% else %}
+    <a href="{% url 'home' %}"><img src="/templates/images/main-logo.png" class="logo_unloggined"></a>
+    {% endif %}
+    <div class="buttons">
+        <a href="{% url 'home' %}" class="header_button">Home</a>
+        {% if user.is_authenticated %}
+        <a href="{% url 'update_info' %}" class="header_button">Profile</a>
+        {% endif %}
+    </div>
 </div>
 <div class="filter_bar">
     <input type="text" class="filter_input" placeholder="Search...">
@@ -29,7 +39,7 @@
         </div>
         <div class = "order_subcontainer">
             <div class="order_button">
-                <a class="order_button1" href="/cart">Buy</a>
+                <a class="order_button1" href="{% url 'product_detail' item.id %}">Buy</a>
             </div>
         </div>
     </div>
@@ -37,3 +47,16 @@
 </div>
 </body>
 </html>
+<script>
+function toggleSort() {
+    var searchParams = new URLSearchParams(window.location.search);
+    var currentSort = searchParams.get('sort') || 'none';
+
+    if (currentSort === 'none' || currentSort === 'price_desc') {
+        searchParams.set('sort', 'price_asc');
+    } else {
+        searchParams.set('sort', 'price_desc');
+    }
+    window.location.search = searchParams.toString();
+}
+</script>

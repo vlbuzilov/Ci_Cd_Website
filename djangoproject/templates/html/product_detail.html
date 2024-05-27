@@ -6,14 +6,23 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ product.name }}</title>
     <link rel="stylesheet" href="/templates/css/product_detail.css">
+    <!-- Додавання jQuery через CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 
 <div class="header">
     <a href="{% url 'products' %}" class="back_arrow_block"><img src="/templates/images/back.png" class="back_arrow"></a>
-    <div class = "buttons">
+    {% if user.is_authenticated %}
+    <a href="{% url 'home' %}"><img src="/templates/images/main-logo.png" class="logo"></a>
+    {% else %}
+    <a href="{% url 'home' %}"><img src="/templates/images/main-logo.png" class="logo_unloggined"></a>
+    {% endif %}
+    <div class="buttons">
         <a href="{% url 'home' %}" class="header_button">Home</a>
-        <a href="/profile" class="header_button">Profile</a>
+        {% if user.is_authenticated %}
+        <a href="{% url 'update_info' %}" class="header_button">Profile</a>
+        {% endif %}
     </div>
 </div>
 
@@ -22,10 +31,31 @@
     <h1>{{ product.name }}</h1>
     <p>{{ product.description }}</p>
     <div class="price_container">
-        <p>Price: {{ product.price }} $</p>
+        <p>Price: {{ discounted_price|floatformat:2 }} $</p>
     </div>
-    <a href="/cart" class="buy_button">Add to Cart</a>
+    <button type="button" value="{{ product.id }}" id="add-cart" class="buy_button">Add to Cart</button>
 </div>
+
+<script>
+$(document).on('click', '#add-cart', function(e){
+    e.preventDefault();
+    $.ajax({
+        type: 'POST',
+        url: '{% url 'cart_add' %}',
+        data: {
+            product_id: $('#add-cart').val(),
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+            action: 'post'
+        },
+        success: function(json){
+            console.log(json)
+        },
+        error: function(xhr, errmsg, err) {
+            console.error(errmsg);
+        }
+    });
+});
+</script>
 
 </body>
 </html>

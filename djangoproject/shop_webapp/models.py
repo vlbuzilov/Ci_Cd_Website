@@ -16,6 +16,10 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
+    def get_discounted_price(self):
+        if self.discount > 0:
+            return self.price * (1 - self.discount / 100)
+        return self.price
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
