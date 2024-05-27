@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Product Showcase</title>
     <link rel="stylesheet" href="/templates/css/shop_css.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <style>
 
@@ -31,7 +32,7 @@
         </div>
         <div class="order_subcontainer">
             <div class="delete_button">
-                <a class="delete_button1" href="">Delete</a>
+                <button type="button" data-index="{{ item.id }}" class="delete_button1">Delete</button>
             </div>
         </div>
     </div>
@@ -39,3 +40,24 @@
 </div>
 </body>
 </html>
+
+<script>
+$(document).on('click', '.delete_button1', function(e){
+    e.preventDefault();
+    $.ajax({
+        type: 'POST',
+        url: '{% url 'cart_delete' %}',
+        data: {
+            product_id: $(this).data('index'),
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+            action: 'post'
+        },
+        success: function(json){
+            location.reload();
+        },
+        error: function(xhr, errmsg, err) {
+            console.error(errmsg);
+        }
+    });
+});
+</script>
