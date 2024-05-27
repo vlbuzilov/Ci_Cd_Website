@@ -20,18 +20,9 @@
         <a href="{% url 'update_info' %}" class="header_button">Profile</a>
     </div>
 </div>
-<div class="filter_bar sorting">
-    <form method="GET" action="">
-        <div class="filter_bar">
-            <input type="search" class="filter_input" name="name_contains" id="search_input" placeholder="Search...">
-        </div>
-    </form>
-    <button onclick="toggleSort()" class="button_sort">Toggle Price Sort</button>
-</div>
-
 
 <div class="product_container">
-    {% for item in all_products %}
+    {% for item in cart_products %}
     <div class="product_info">
         <img src="{{ item.image.url }}" class="product_images" alt="{{ item.name }}">
         <div class="product_info1">
@@ -39,26 +30,12 @@
             {{ item.price }} $
         </div>
         <div class="order_subcontainer">
-            <div class="order_button">
-                <a class="order_button1" href="{% url 'product_detail' item.id %}">Buy</a>
+            <div class="delete_button">
+                <a class="delete_button1" href="">Delete</a>
             </div>
         </div>
     </div>
     {% endfor %}
 </div>
 </body>
-<script>
-function toggleSort() {
-    var searchParams = new URLSearchParams(window.location.search);
-    var currentSort = searchParams.get('sort') || 'none';
-
-    if (currentSort === 'none' || currentSort === 'price_desc') {
-        searchParams.set('sort', 'price_asc');
-    } else {
-        searchParams.set('sort', 'price_desc');
-    }
-    window.location.search = searchParams.toString();
-}
-</script>
-
 </html>

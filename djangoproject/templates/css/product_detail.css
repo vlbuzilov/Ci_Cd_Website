@@ -205,6 +205,11 @@ body {
     vertical-align: middle;
     justify-content: left;
     align-content: start;
+    margin-left: 30px;
+}
+
+.logo{
+    margin-left: 170px;
 }
 
 .buttons{
