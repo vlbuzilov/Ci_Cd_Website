@@ -6,10 +6,64 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Product Showcase</title>
     <link rel="stylesheet" href="/templates/css/shop_css.css">
+    <style>
+        .filter_popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            z-index: 1000;
+        }
+        .filter_overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 999;
+        }
+        .button_filter {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .button_filter:hover {
+            background-color: #0056b3;
+        }
+        .filter_input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .button_filter_close {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .button_filter_close:hover {
+            background-color: #c82333;
+        }
+    </style>
 </head>
-<style>
-
-</style>
 <body>
 
 <div class="header">
@@ -27,14 +81,8 @@
     </div>
 </div>
 <div class="filter_bar sorting">
-    <form method="GET" action="">
-        <div class="filter_bar">
-            <input type="search" class="filter_input" name="name_contains" id="search_input" placeholder="Search...">
-        </div>
-    </form>
-    <button onclick="toggleSort()" class="button_sort">Toggle Price Sort</button>
+    <button onclick="toggleFilterPopup()" class="button_filter">Filter</button>
 </div>
-
 
 <div class="product_container">
     {% for item in all_products %}
@@ -52,19 +100,54 @@
     </div>
     {% endfor %}
 </div>
-</body>
-<script>
-function toggleSort() {
-    var searchParams = new URLSearchParams(window.location.search);
-    var currentSort = searchParams.get('sort') || 'none';
 
-    if (currentSort === 'none' || currentSort === 'price_desc') {
-        searchParams.set('sort', 'price_asc');
-    } else {
-        searchParams.set('sort', 'price_desc');
-    }
-    window.location.search = searchParams.toString();
+<div class="filter_overlay" id="filterOverlay" onclick="toggleFilterPopup()"></div>
+<div class="filter_popup" id="filterPopup">
+    <form method="GET" action="">
+        <div>
+            <label for="search_input">Search by Name:</label>
+            <input type="search" class="filter_input" name="name_contains" id="search_input" placeholder="Search...">
+        </div>
+        <div>
+            <label for="type_select">Filter by Type:</label>
+            <select name="type" id="type_select" class="filter_input">
+                <option value="">All</option>
+                <option value="laptop">Ноутбук</option>
+                <option value="phone">Телефон</option>
+                <option value="headphones">Навушники</option>
+                <option value="accessories">Аксесуари</option>
+            </select>
+        </div>
+        <div>
+            <label for="color_select">Filter by Color:</label>
+            <select name="color" id="color_select" class="filter_input">
+                <option value="">All</option>
+                {% for color in available_colors %}
+                    <option value="{{ color }}">{{ color }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <label for="sort_select">Sort by Price:</label>
+            <select name="sort" id="sort_select" class="filter_input">
+                <option value="">None</option>
+                <option value="price_asc">Price Ascending</option>
+                <option value="price_desc">Price Descending</option>
+            </select>
+        </div>
+        <button type="submit" class="button_filter">Apply Filter</button>
+        <button type="button" onclick="toggleFilterPopup()" class="button_filter_close">Close</button>
+    </form>
+</div>
+
+<script>
+function toggleFilterPopup() {
+    var popup = document.getElementById('filterPopup');
+    var overlay = document.getElementById('filterOverlay');
+    popup.style.display = (popup.style.display === 'block') ? 'none' : 'block';
+    overlay.style.display = (overlay.style.display === 'block') ? 'none' : 'block';
 }
 </script>
 
+</body>
 </html>
