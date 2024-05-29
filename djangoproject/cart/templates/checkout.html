@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Product Showcase</title>
+    <link rel="stylesheet" href="/templates/css/checkout.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+<div class="header">
+    <a href="{% url 'cart_summary' %}" class="back_arrow_block"><img src="/templates/images/back.png" class="back_arrow"></a>
+    <a href="{% url 'home' %}"><img src="/templates/images/main-logo.png" class="logo"></a>
+    <div class="buttons">
+        <a href="{% url 'home' %}" class="header_button">Home</a>
+        {% if user.is_authenticated %}
+        <a href="{% url 'update_info' %}" class="header_button">Profile</a>
+        {% endif %}
+    </div>
+</div>
+<div class="thank_you_message">
+    <p>Thank you for the order! Operator will contact you soon!</p>
+</div>
+
+<script>
+$(document).on('click', '.delete_button1', function(e){
+    e.preventDefault();
+    $.ajax({
+        type: 'POST',
+        url: '{% url 'cart_delete' %}',
+        data: {
+            product_id: $(this).data('index'),
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+            action: 'post'
+        },
+        success: function(json){
+            location.reload();
+        },
+        error: function(xhr, errmsg, err) {
+            console.error(errmsg);
+        }
+    });
+});
+</script>
+
+</body>
+</html>

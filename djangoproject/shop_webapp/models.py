@@ -6,15 +6,29 @@ from django.db.models.signals import post_save
 
 
 class Product(models.Model):
+    PRODUCT_CHOICES = [
+        ('laptop', 'Ноутбук'),
+        ('phone', 'Телефон'),
+        ('headphones', 'Навушники'),
+        ('accessories', 'Аксесуари'),
+    ]
+
+    type = models.CharField(max_length=20, choices=PRODUCT_CHOICES, default='phone')
     name = models.CharField(max_length=30)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     description = models.TextField()
     image = models.ImageField(upload_to='djangoproject/static/images')
     discount = models.DecimalField(max_digits=4, decimal_places=2, null=True, default=False)
+    color = models.CharField(max_length=20,default='white')
     isDiscount = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
+
+    def get_discounted_price(self):
+        if self.discount > 0:
+            return self.price * (1 - self.discount / 100)
+        return self.price
 
 
 class Profile(models.Model):

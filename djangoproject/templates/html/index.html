@@ -196,6 +196,7 @@
                           </svg>
                         </a>
                       </li>
+                      {% if user.is_authenticated %}
                       <li class="pe-3">
                         <a href="{% url 'update_info' %}">
                           <svg class="user">
@@ -203,19 +204,14 @@
                           </svg>
                         </a>
                       </li>
+                      {% endif %}
                       <li>
-                        <a href="cart.html">
+                        <a href="{% url 'cart_summary' %}">
                           <svg class="cart">
                             <use xlink:href="#cart"></use>
                           </svg>
                         </a>
                       </li>
-                      <li>
-                        <a href="">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 12 16">
-                            <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
-                          </svg>
-                        </a>
                       </li>
                     </ul>
                   </div>
