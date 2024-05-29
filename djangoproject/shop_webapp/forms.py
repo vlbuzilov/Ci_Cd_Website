@@ -2,22 +2,42 @@ from django import forms
 from django.contrib.auth.models import User
 from .models import Profile
 
+
 class UserInfoForm(forms.ModelForm):
-    username = forms.CharField(label="", widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Username'}), required=True)
-    email = forms.EmailField(label="", widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Email'}), required=True)
-    first_name = forms.CharField(label="", widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'First Name'}), required=True)
-    last_name = forms.CharField(label="", widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Last Name'}), required=True)
-    phone = forms.CharField(label="", widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Phone'}), required=False)
-    address1 = forms.CharField(label="", widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Address'}), required=False)
-    address2 = forms.CharField(label="", widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Address'}), required=False)
-    city = forms.CharField(label="", widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'City'}), required=False)
-    state = forms.CharField(label="", widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'State'}), required=False)
-    country = forms.CharField(label="", widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Country'}), required=False)
-    zipcode = forms.CharField(label="", widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Zipcode'}), required=False)
+    username = forms.CharField(label="",
+                               widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Username'}),
+                               required=True)
+    email = forms.EmailField(label="", widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Email'}),
+                             required=True)
+    first_name = forms.CharField(label="",
+                                 widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'First Name'}),
+                                 required=True)
+    last_name = forms.CharField(label="",
+                                widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Last Name'}),
+                                required=True)
+    phone = forms.CharField(label="", widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Phone'}),
+                            required=False)
+    address1 = forms.CharField(label="",
+                               widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Address'}),
+                               required=False)
+    address2 = forms.CharField(label="",
+                               widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Address'}),
+                               required=False)
+    city = forms.CharField(label="", widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'City'}),
+                           required=False)
+    state = forms.CharField(label="", widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'State'}),
+                            required=False)
+    country = forms.CharField(label="",
+                              widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Country'}),
+                              required=False)
+    zipcode = forms.CharField(label="",
+                              widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Zipcode'}),
+                              required=False)
 
     class Meta:
         model = Profile
-        fields = ['username', 'email', 'first_name', 'last_name', 'phone', 'address1', 'address2', 'city', 'state', 'country', 'zipcode']
+        fields = ['username', 'email', 'first_name', 'last_name', 'phone', 'address1', 'address2', 'city', 'state',
+                  'country', 'zipcode']
 
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user')
