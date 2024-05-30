@@ -41,7 +41,7 @@ jobs:
 
     - name: Run Docker container
       run: |
-        docker run -d --name djangoproject djangoproject:latest
+        docker run -d --name djangoproject djangoproject-web-1:latest
 
     - name: Run Django tests
       run: |
