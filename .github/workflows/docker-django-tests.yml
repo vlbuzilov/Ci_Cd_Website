@@ -38,7 +38,7 @@ jobs:
         tags: djangoproject:latest
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache
-        load: true  # Додаємо завантаження образу після створення
+        load: true
 
     - name: Run Docker container
       run: |
