@@ -38,10 +38,11 @@ jobs:
         tags: djangoproject:latest
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache
+        load: true
 
     - name: Run Docker container
       run: |
-        docker run -d --name djangoproject djangoproject-web-1:latest
+        docker run -d --name djangoproject djangoproject:latest
 
     - name: Run Django tests
       run: |
