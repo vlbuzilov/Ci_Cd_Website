@@ -33,7 +33,7 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         context: .
-        file: ./Dockerfile
+        file: ./djangoproject/Dockerfile
         push: false
         tags: my-django-app:latest
         cache-from: type=local,src=/tmp/.buildx-cache
