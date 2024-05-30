@@ -1,10 +1,11 @@
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase, Client
 from django.urls import reverse
 from django.contrib.messages import get_messages
 
-from .models import Profile
+from .models import Profile, Product
 from .forms import UserInfoForm
 
 
@@ -220,3 +221,238 @@ class UserInfoFormTest(TestCase):
         self.assertEqual(updated_profile.state, 'NY')
         self.assertEqual(updated_profile.country, 'USA')
         self.assertEqual(updated_profile.zipcode, '10001')
+class ProductModelTest(TestCase):
+    """
+    Test suite for the Product model.
+    """
+
+    def setUp(self):
+        self.sample_image = SimpleUploadedFile(
+            name='test_image.jpg',
+            content=b'\x00\x00\x00\x00',
+            content_type='image/jpeg'
+        )
+        self.product = Product.objects.create(
+            type='phone',
+            name='Test Phone',
+            price=999.99,
+            description='A sample description.',
+            image=self.sample_image,
+            discount=10.00,
+            color='black',
+            isDiscount=True
+        )
+
+    def test_product_creation(self):
+        """
+        Test that a product is created correctly.
+        """
+        product = self.product
+        self.assertIsInstance(product, Product)
+        self.assertEqual(product.type, 'phone')
+        self.assertEqual(product.name, 'Test Phone')
+        self.assertEqual(product.price, 999.99)
+        self.assertEqual(product.description, 'A sample description.')
+        self.assertEqual(product.discount, 10.00)
+        self.assertEqual(product.color, 'black')
+        self.assertTrue(product.isDiscount)
+
+    def test_default_values(self):
+        """
+        Test that default values are set correctly.
+        """
+        product = Product.objects.create(
+            name='Default Test Product',
+            price=499.99,
+            description='A sample description.',
+            image=self.sample_image,
+        )
+        self.assertEqual(product.type, 'phone')
+        self.assertEqual(product.color, 'white')
+        self.assertFalse(product.isDiscount)
+
+    def test_get_discounted_price(self):
+        """
+        Test the get_discounted_price method.
+        """
+        product = self.product
+        discounted_price = product.get_discounted_price()
+        self.assertEqual(discounted_price, 899.991)
+
+    def test_get_discounted_price_no_discount(self):
+        """
+        Test the get_discounted_price method when there is no discount.
+        """
+        product = Product.objects.create(
+            name='No Discount Product',
+            price=499.99,
+            description='A sample description.',
+            image=self.sample_image,
+        )
+        self.assertEqual(product.get_discounted_price(), 499.99)
+
+    def test_product_str(self):
+        """
+        Test the __str__ method of the Product model.
+        """
+        product = self.product
+        self.assertEqual(str(product), 'Test Phone')
+
+    def test_invalid_discount_value(self):
+        """
+        Test that an invalid discount value raises a ValidationError.
+        """
+        with self.assertRaises(ValidationError):
+            product_invalid = Product(
+                name='Invalid Discount Product',
+                price=499.99,
+                description='A sample description.',
+                image=self.sample_image,
+                discount=-5.00,
+            )
+            product_invalid.full_clean()  # This will trigger the validation
+            product_invalid.save()
+
+    def test_invalid_price_value(self):
+        """
+        Test that an invalid price value raises a ValidationError.
+        """
+        with self.assertRaises(ValidationError):
+            product_invalid = Product(
+                name='Invalid Price Product',
+                price=-100.00,
+                description='A sample description.',
+                image=self.sample_image,
+            )
+            product_invalid.full_clean()  # This will trigger the validation
+            product_invalid.save()
+    def test_max_length_name(self):
+        """
+        Test the maximum length constraint of the name field.
+        """
+        product = Product.objects.create(
+            name='A' * 30,
+            price=499.99,
+            description='A sample description.',
+            image=self.sample_image,
+        )
+        self.assertEqual(len(product.name), 30)
+
+    def test_max_length_type(self):
+        """
+        Test the maximum length constraint of the type field.
+        """
+        product = Product.objects.create(
+            type='A' * 20,
+            name='Test Product',
+            price=499.99,
+            description='A sample description.',
+            image=self.sample_image,
+        )
+        self.assertEqual(len(product.type), 20)
+
+    def test_max_length_color(self):
+        """
+        Test the maximum length constraint of the color field.
+        """
+        product = Product.objects.create(
+            name='Test Product',
+            price=499.99,
+            description='A sample description.',
+            image=self.sample_image,
+            color='A' * 20,
+        )
+        self.assertEqual(len(product.color), 20)
+
+    def test_discounted_price_rounding(self):
+        """
+        Test that the discounted price is rounded correctly.
+        """
+        product = Product.objects.create(
+            name='Rounded Discount Product',
+            price=100.00,
+            description='A sample description.',
+            image=self.sample_image,
+            discount=33.33,
+            isDiscount=True
+        )
+        self.assertAlmostEqual(product.get_discounted_price(), 66.67, places=2)
+
+    def test_discount_with_no_isDiscount(self):
+        """
+        Test that discount is not applied if isDiscount is False.
+        """
+        product = Product.objects.create(
+            name='Non Discounted Product',
+            price=100.00,
+            description='A sample description.',
+            image=self.sample_image,
+            discount=20.00,
+            isDiscount=False,
+        )
+        self.assertEqual(product.get_discounted_price(), 100.00)
+
+    def test_discount_greater_than_100(self):
+        """
+        Test that a discount greater than 100 is not allowed.
+        """
+        product_invalid = Product(
+            name='Excessive Discount Product',
+            price=100.00,
+            description='A sample description.',
+            image=self.sample_image,
+            discount=150.00,
+        )
+        try:
+            product_invalid.full_clean()  # This will trigger the validation
+        except ValidationError as e:
+            self.assertIn('discount', e.message_dict)
+            self.assertIn('Ensure this value is less than or equal to 100.', e.message_dict['discount'])
+
+    def test_blank_description(self):
+        """
+        Test that a blank description is allowed.
+        """
+        product = Product.objects.create(
+            name='No Description Product',
+            price=100.00,
+            image=self.sample_image,
+        )
+        self.assertEqual(product.description, '')
+
+    def test_null_discount(self):
+        """
+        Test that a null discount value is allowed and defaults correctly.
+        """
+        product = Product.objects.create(
+            name='No Discount Product',
+            price=100.00,
+            description='A sample description.',
+            image=self.sample_image,
+            discount=None,
+        )
+        self.assertIsNone(product.discount)
+
+    def test_product_choices(self):
+        """
+        Test that only valid product choices are allowed.
+        """
+        product = Product.objects.create(
+            type='laptop',
+            name='Laptop Product',
+            price=1000.00,
+            description='A sample description.',
+            image=self.sample_image,
+        )
+        self.assertEqual(product.type, 'laptop')
+
+        with self.assertRaises(ValidationError):
+            product_invalid = Product(
+                type='invalid_choice',
+                name='Invalid Choice Product',
+                price=100.00,
+                description='A sample description.',
+                image=self.sample_image,
+            )
+            product_invalid.full_clean()  # This will trigger the validation
+            product_invalid.save()  # This is not reached if validation fails
