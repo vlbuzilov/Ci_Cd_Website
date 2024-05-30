@@ -55,8 +55,8 @@ jobs:
         docker logs djangoproject
 
     - name: Run Django tests
-      run: |
-            docker exec djangoproject python djangoproject/manage.py test shop_webapp cart
+    - run: |
+        docker exec djangoproject sh -c "cd djangoproject && python manage.py test"
 
 
     - name: Stop and remove container
