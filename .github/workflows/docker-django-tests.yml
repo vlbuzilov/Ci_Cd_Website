@@ -55,7 +55,7 @@ jobs:
         docker logs djangoproject
 
     - name: Run Django tests
-    - run: |
+      run: |
         docker exec djangoproject sh -c "cd djangoproject && python manage.py test"
 
 
