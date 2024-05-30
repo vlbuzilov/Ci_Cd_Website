@@ -1,15 +1,16 @@
 from django.shortcuts import render, get_object_or_404
-from .cart import Cart
 from django.http import JsonResponse
 from shop_webapp.models import Product
 
 def cart_summary(request):
+    from .cart import Cart
     cart = Cart(request)
     cart_products = cart.get_prods()
-    total_price = sum(float(item.discounted_price) for item in cart_products)
+    total_price = sum(float(item.get_discounted_price()) for item in cart_products)
     return render(request, "cart_summary.html", {"cart_products": cart_products, "total_price": total_price})
 
 def cart_add(request):
+    from .cart import Cart
     cart = Cart(request)
     if request.POST.get('action') == 'post':
         product_id = int(request.POST.get('product_id'))
@@ -19,6 +20,7 @@ def cart_add(request):
         return response
 
 def cart_delete(request):
+    from .cart import Cart
     cart = Cart(request)
     if request.POST.get('action') == 'post':
         product_id = int(request.POST.get('product_id'))
