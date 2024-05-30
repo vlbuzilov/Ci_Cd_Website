@@ -42,7 +42,7 @@ jobs:
 
     - name: Run Docker container
       run: |
-        docker run -d --name djangoproject djangoproject:latest
+        docker run -d --name djangoproject djangoproject:latest tail -f /dev/null
 
     - name: Check Docker container status
       run: |
