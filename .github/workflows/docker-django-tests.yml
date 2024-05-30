@@ -38,11 +38,21 @@ jobs:
         tags: djangoproject:latest
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache
-        load: true
+        load: true  # Додаємо завантаження образу після створення
 
     - name: Run Docker container
       run: |
         docker run -d --name djangoproject djangoproject:latest
+
+    - name: Check Docker container status
+      run: |
+        sleep 10
+        docker ps -a
+
+    - name: Get Docker container logs (in case of failure)
+      if: failure()
+      run: |
+        docker logs djangoproject
 
     - name: Run Django tests
       run: |
