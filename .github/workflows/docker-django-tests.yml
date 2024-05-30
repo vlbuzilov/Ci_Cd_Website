@@ -56,7 +56,7 @@ jobs:
 
     - name: Run Django tests
       run: |
-        docker exec djangoproject python manage.py test
+        docker exec djangoproject python djangoproject/manage.py test
 
     - name: Stop and remove container
       run: |
