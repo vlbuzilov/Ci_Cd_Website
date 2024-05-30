@@ -1,0 +1,64 @@
+name: Django Docker CI
+
+on:
+  push:
+    branches:
+      - main
+      - development
+  pull_request:
+    branches:
+      - main
+      - development
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+
+    - name: Cache Docker layers
+      uses: actions/cache@v2
+      with:
+        path: /tmp/.buildx-cache
+        key: ${{ runner.os }}-buildx-${{ github.sha }}
+        restore-keys: |
+          ${{ runner.os }}-buildx-
+
+    - name: Build Docker image
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        file: ./djangoproject/Dockerfile
+        push: false
+        tags: djangoproject:latest
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache
+        load: true
+
+    - name: Run Docker container
+      run: |
+        docker run -d --name djangoproject djangoproject:latest tail -f /dev/null
+
+    - name: Check Docker container status
+      run: |
+        sleep 10
+        docker ps -a
+
+    - name: Get Docker container logs (in case of failure)
+      if: failure()
+      run: |
+        docker logs djangoproject
+
+    - name: Run Django tests
+      run: |
+        docker exec djangoproject python djangoproject/manage.py test
+
+    - name: Stop and remove container
+      run: |
+        docker stop djangoproject
+        docker rm djangoproject
