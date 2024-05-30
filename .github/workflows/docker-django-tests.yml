@@ -35,19 +35,19 @@ jobs:
         context: .
         file: ./djangoproject/Dockerfile
         push: false
-        tags: my-django-app:latest
+        tags: djangoproject:latest
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache
 
     - name: Run Docker container
       run: |
-        docker run -d --name my-django-app-container my-django-app:latest
+        docker run -d --name djangoproject djangoproject:latest
 
     - name: Run Django tests
       run: |
-        docker exec my-django-app-container python manage.py test
+        docker exec djangoproject python manage.py test
 
     - name: Stop and remove container
       run: |
-        docker stop my-django-app-container
-        docker rm my-django-app-container
+        docker stop djangoproject
+        docker rm djangoproject
