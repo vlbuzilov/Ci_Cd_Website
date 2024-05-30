@@ -2,7 +2,7 @@
 FROM python:3.9
 
 # Set the working directory
-WORKDIR /app
+WORKDIR /djangoproject
 
 # Copy the requirements file into the container at /app
 COPY djangoproject/requirements.txt /app/
