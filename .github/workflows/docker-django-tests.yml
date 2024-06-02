@@ -80,4 +80,10 @@ jobs:
 
     - name: Re-Deploy Pythonanywhere Django API
       id: deploy
-      run: echo "Deployed"
+      uses: umuttopalak/pythonanywhere-deploy-action@v1.0.0
+      with:
+          host: 'vladbuzilov.pythonanywhere.com'
+          username: 'vladbuzilov'
+          api_token: ${{ secrets.API_TOKEN }}
+          domain_name: 'vladbuzilov.pythonanywhere.com'
+          console_id: '34090058'
