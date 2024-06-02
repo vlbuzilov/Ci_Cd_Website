@@ -6,6 +6,7 @@ from django.contrib import messages
 from .forms import UserInfoForm
 from .models import Product, Profile
 
+
 def index_page(request):
     return render(request, 'index.html')
 
@@ -118,32 +119,25 @@ def product_detail(request, id):
 
 
 def sale_page(request):
-    # Отримання продуктів на розпродажі
     sale_products = Product.objects.filter(isDiscount=True)
 
-    # Обчислення актуальної ціни
     for product in sale_products:
         product.actual_price = product.price * (1 - product.discount / 100)
 
-    # Отримання доступних кольорів
     available_colors = Product.objects.filter(isDiscount=True).values_list('color', flat=True).distinct()
 
-    # Фільтрація за типом продукту
     product_type = request.GET.get('type')
     if product_type:
         sale_products = sale_products.filter(type=product_type)
 
-    # Пошук за ім'ям продукту
     name_contains = request.GET.get('name_contains')
     if name_contains:
         sale_products = sale_products.filter(name__icontains=name_contains)
 
-    # Фільтрація за кольором
     product_color = request.GET.get('color')
     if product_color:
         sale_products = sale_products.filter(color=product_color)
 
-    # Сортування за ціною
     sort = request.GET.get('sort')
     if sort == 'price_asc':
         sale_products = sale_products.order_by('price')
@@ -151,3 +145,7 @@ def sale_page(request):
         sale_products = sale_products.order_by('-price')
 
     return render(request, 'sale.html', {'all': sale_products, 'available_colors': available_colors})
+
+
+def blog(request):
+    return render(request, 'blog.html')
