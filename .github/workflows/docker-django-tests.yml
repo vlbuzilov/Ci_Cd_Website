@@ -83,6 +83,6 @@ jobs:
       with:
           host: 'vladbuzilov.pythonanywhere.com'
           username: 'vladbuzilov'
-          api_token: {{ secrets.API_TOKEN }}
+          api_token: ${{ secrets.API_TOKEN }}
           domain_name: 'vladbuzilov.pythonanywhere.com'
           console_id: '34090058'
