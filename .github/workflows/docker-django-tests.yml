@@ -72,13 +72,18 @@ jobs:
       with:
         python-version: 3.9
 
+    - name: Install dependencies
+      run: |
+        python -m venv venv
+        source venv/bin/activate
+        pip install pythonanywhere
+
     - name: Deploy to PythonAnywhere
       env:
         PA_API_TOKEN: ${{ secrets.PA_API_TOKEN }}
       run: |
-        # Install PythonAnywhere CLI
-        pip install --user pythonanywhere
+        # Upload code to PythonAnywhere
+        pa_api_token=$PA_API_TOKEN pythonanywhere --user=vladbuzilov webapp update vladbuzilov.pythonanywhere.com --source-directory=. --target-directory=.
 
-        pa_api_token=$PA_API_TOKEN pythonanywhere --user=<vladbuzilov> webapp update <vladbuzilov.pythonanywhere.com> --source-directory=. --target-directory=.
-
-        pa_api_token=$PA_API_TOKEN pythonanywhere --user=<vladbuzilov> webapp reload <vladbuzilov.pythonanywhere.com>
+        # Reload the web app
+        pa_api_token=$PA_API_TOKEN pythonanywhere --user=vladbuzilov webapp reload vladbuzilov.pythonanywhere.com
