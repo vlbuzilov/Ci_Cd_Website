@@ -89,6 +89,8 @@ jobs:
           console_id: '34090058'
 
     - name: Check deployment status
-      if: ${{ failure(steps.deploy) }}
-      run: echo "Deployment has been passed"
-
+      if: ${{ steps.deploy.outcome != 'success' }}
+      run: echo "Deployment failed, skipping further steps."
+    - name: Check deployment status
+      if: ${{ steps.deploy.outcome == 'success' }}
+      run: echo "Deployment has been passed."
