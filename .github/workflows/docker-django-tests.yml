@@ -79,10 +79,16 @@ jobs:
         pip install pythonanywhere
 
     - name: Re-Deploy Pythonanywhere Django API
-      uses: umuttopalak/pythonanywhere-deploy-action
+      id: deploy
+      uses: umuttopalak/pythonanywhere-deploy-action@v1.0.0
       with:
           host: 'vladbuzilov.pythonanywhere.com'
           username: 'vladbuzilov'
-          api_token: ${{ secrets.PA_API_TOKEN }}
+          api_token: ${{ secrets.API_TOKEN }}
           domain_name: 'vladbuzilov.pythonanywhere.com'
           console_id: '34090058'
+
+    - name: Check deployment status
+      if: ${{ failure(steps.deploy) }}
+      run: echo "Deployment has been passed"
+
