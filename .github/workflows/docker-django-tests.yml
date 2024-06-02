@@ -78,10 +78,11 @@ jobs:
         source venv/bin/activate
         pip install pythonanywhere
 
-    - name: Deploy to PythonAnywhere
-      env:
-        PA_API_TOKEN: ${{ secrets.PA_API_TOKEN }}
-      run: |
-    
-        # Reload the web app
-        pa_api_token=$PA_API_TOKEN pythonanywhere --user=vladbuzilov webapp reload vladbuzilov.pythonanywhere.com
+    - name: Re-Deploy Pythonanywhere Django API
+      uses: umuttopalak/pythonanywhere-deploy-action@v1.0.0
+      with:
+          host: 'vladbuzilov.pythonanywhere.com'
+          username: 'vladbuzilov'
+          api_token: {{ secrets.API_TOKEN }}
+          domain_name: 'vladbuzilov.pythonanywhere.com'
+          console_id: '34090058'
