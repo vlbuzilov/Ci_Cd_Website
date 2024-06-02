@@ -79,7 +79,7 @@ jobs:
         pip install pythonanywhere
 
     - name: Re-Deploy Pythonanywhere Django API
-      uses: umuttopalak/pythonanywhere-deploy-action@v1.0.0
+      uses: umuttopalak/pythonanywhere-deploy-action
       with:
           host: 'vladbuzilov.pythonanywhere.com'
           username: 'vladbuzilov'
