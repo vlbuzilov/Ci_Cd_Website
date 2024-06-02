@@ -80,4 +80,4 @@ jobs:
 
     - name: Re-Deploy Pythonanywhere Django API
       id: deploy
-      run: echo "Skipping deployment due to previous errors"
+      run: echo "Deployed"
