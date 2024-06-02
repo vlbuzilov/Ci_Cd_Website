@@ -4,7 +4,7 @@ FROM python:3.9
 # Set the working directory
 WORKDIR /djangoproject
 
-COPY /requirements.txt /djangoproject/
+COPY djangoproject/requirements.txt /djangoproject/
 
 # Install any needed packages specified in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
