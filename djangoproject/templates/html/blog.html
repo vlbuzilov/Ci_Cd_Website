@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .padding-large {
+            padding: 50px 0;
+        }
+        .display-header {
+            align-items: center;
+        }
+        .btn-right {
+            margin-left: auto;
+        }
+        .post-grid {
+            gap: 20px;
+        }
+        .card {
+            border: none;
+            margin-bottom: 30px;
+        }
+        .card-image img {
+            width: 100%;
+            height: auto;
+        }
+        .card-body {
+            padding-top: 10px;
+        }
+        .card-title a {
+            color: #000;
+            text-decoration: none;
+        }
+        .card-title a:hover {
+            text-decoration: underline;
+        }
+        .text-right-align {
+            text-align: right;
+        }
+        .text-left-align {
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+        <a class="navbar-brand" href="#">Blog</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Blog</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Main Content -->
+<main class="container my-5">
+    <!-- Blog Section -->
+    <section id="latest-blog" class="padding-large">
+        <div class="container">
+            <div class="row">
+                <div class="display-header d-flex justify-content-between pb-3">
+                    <h2 class="display-7 text-dark text-uppercase">Latest Posts</h2>
+                    <div class="btn-right">
+                        <a href="#" class="btn btn-medium btn-normal text-uppercase">Read Blog</a>
+                    </div>
+                </div>
+                <div class="post-grid d-flex flex-wrap justify-content-center">
+                    <div class="col-lg-4 col-sm-12 text-left-align">
+                        <div class="card border-none me-3">
+                            <div class="card-image">
+                                <img src="/templates/images/post-item1.jpg" alt="" class="img-fluid">
+                            </div>
+                            <div class="card-body text-uppercase">
+                                <div class="card-meta text-muted">
+                                    <span class="meta-date">Feb 22, 2023</span>
+                                    <span class="meta-category">- Gadgets</span>
+                                </div>
+                                <h3 class="card-title">
+                                    <a href="#">Get some cool gadgets in 2023</a>
+                                </h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eget risus vitae massa semper aliquam quis mattis quam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eget risus vitae massa semper aliquam quis mattis quam.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-12 text-right-align">
+                        <div class="card border-none me-3">
+                            <div class="card-body text-uppercase">
+                                <div class="card-meta text-muted">
+                                    <span class="meta-date">Feb 25, 2023</span>
+                                    <span class="meta-category">- Technology</span>
+                                </div>
+                                <h3 class="card-title">
+                                    <a href="#">Technology Hack You Won't Get</a>
+                                </h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eget risus vitae massa semper aliquam quis mattis quam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eget risus vitae massa semper aliquam quis mattis quam.</p>
+                            </div>
+                            <div class="card-image">
+                                <img src="/templates/images/post-item2.jpg" alt="" class="img-fluid">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-12 text-left-align">
+                        <div class="card border-none me-3">
+                            <div class="card-image">
+                                <img src="/templates/images/post-item3.jpg" alt="" class="img-fluid">
+                            </div>
+                            <div class="card-body text-uppercase">
+                                <div class="card-meta text-muted">
+                                    <span class="meta-date">Feb 22, 2023</span>
+                                    <span class="meta-category">- Camera</span>
+                                </div>
+                                <h3 class="card-title">
+                                    <a href="#">Top 10 Small Camera In The World</a>
+                                </h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eget risus vitae massa semper aliquam quis mattis quam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eget risus vitae massa semper aliquam quis mattis quam.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-12 text-right-align">
+                        <div class="card border-none me-3">
+                            <div class="card-body text-uppercase">
+                                <div class="card-meta text-muted">
+                                    <span class="meta-date">Mar 01, 2023</span>
+                                    <span class="meta-category">- Innovation</span>
+                                </div>
+                                <h3 class="card-title">
+                                    <a href="#">Innovative Ideas for 2023</a>
+                                </h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eget risus vitae massa semper aliquam quis mattis quam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eget risus vitae massa semper aliquam quis mattis quam.</p>
+                            </div>
+                            <div class="card-image">
+                                <img src="/templates/images/post-item4.jpg" alt="" class="img-fluid">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-12 text-left-align">
+                        <div class="card border-none me-3">
+                            <div class="card-image">
+                                <img src="/templates/images/post-item5.jpg" alt="" class="img-fluid">
+                            </div>
+                            <div class="card-body text-uppercase">
+                                <div class="card-meta text-muted">
+                                    <span class="meta-date">Mar 05, 2023</span>
+                                    <span class="meta-category">- Lifestyle</span>
+                                </div>
+                                <h3 class="card-title">
+                                    <a href="#">Lifestyle Trends to Follow</a>
+                                </h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eget risus vitae massa semper aliquam quis mattis quam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eget risus vitae massa semper aliquam quis mattis quam.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- Footer -->
+<footer class="bg-dark text-white py-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h5>About Us</h5>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eget risus vitae massa semper aliquam quis mattis quam.</p>
+            </div>
+            <div class="col-md-6 text-md-right">
+                <h5>Contact Us</h5>
+                <p>Email: info@example.com</p>
+                <p>Phone: +123 456 7890</p>
+            </div>
+        </div>
+        <div class="text-center mt-3">
+            &copy; 2024 My Blog. All rights reserved.
+        </div>
+    </div>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
